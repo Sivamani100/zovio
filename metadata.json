@@ -1,0 +1,6 @@
+{
+  "name": "Xylo",
+  "description": "UPI Payment Announcer plays real-time voice alerts for incoming payments from apps like GPay, PhonePe, and Paytm, turning your device into an automatic UPI Soundbox.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

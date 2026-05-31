@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- QR Outer box corners -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M3,3 h6 v2 h-4 v4 h-2 z" />
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M15,3 h6 v2 h-4 v4 h-2 z" />
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M3,15 h2 v4 h4 v2 h-6 z" />
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M19,15 h2 v4 h-4 v2 h2 v-4 z" />
+
+    <!-- Inner small elements representing QR dots -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M5,5 h2 v2 h-2 z M17,5 h2 v2 h-2 z M5,17 h2 v2 h-2 z M17,17 h2 v2 h-2 z" />
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M9,9 h2 v2 h-2 z M13,9 h2 v2 h-2 z M9,13 h2 v2 h-2 z M13,13 h2 v2 h-2 z" />
+
+    <!-- A friendly plus/add symbol in the center -->
+    <path
+        android:fillColor="#E65100"
+        android:pathData="M11,11 h2 v-3 h2 v-2 h-2 v-2 h-2 v2 h-2 v2 h2 z" />
+</vector>
