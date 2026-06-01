@@ -51,44 +51,187 @@ object PaymentDeDuplicator {
 object NotificationParser {
 
     private val UPI_APP_PACKAGES = setOf(
-        "com.phonepe.app",                          // PhonePe
-        "com.phonepe.app.preprod",                  // PhonePe staging
-        "com.phonepe.app.business",                 // PhonePe Business
-        "net.one97.paytm",                          // Paytm
-        "net.one97.paytm.merchant",                 // Paytm Business
-        "com.paytm.business",                       // Paytm Business alternative
-        "com.google.android.apps.nbu.paisa.user",  // Google Pay
+        // Major / Popular Apps
+        "com.phonepe.app",                        // PhonePe
+        "com.phonepe.app.preprod",                // PhonePe staging
+        "com.phonepe.app.business",               // PhonePe Business
+        "net.one97.paytm",                        // Paytm
+        "com.paytmmall",                          // Paytm Mall
+        "com.paytm.business",                     // Paytm Business
+        "com.google.android.apps.nbu.paisa.user", // Google Pay
         "com.google.android.apps.nbu.paisa.merchant", // Google Pay Business
-        "in.org.npci.upiapp",                      // BHIM
-        "com.freecharge.android",                   // Freecharge
-        "com.mobikwik_new",                         // MobiKwik
-        "com.amazon.mShop.android.shopping",       // Amazon Pay
-        "com.samsung.android.spay",                 // Samsung Pay
-        "com.whatsapp",                             // WhatsApp Pay
-        "io.navi.app",                              // Navi
-        "com.bajajfinserv.wallet",                  // Bajaj Pay
-        "com.axis.mobile",                          // Axis Bank
-        "com.csam.icici.bank.imobile",             // ICICI iMobile
-        "com.snapwork.hdfc",                        // HDFC PayZapp
-        "com.sbi.SBIFreedomPlus",                  // SBI YONO
-        "com.cred.android"                          // CRED
+        "com.google.android.apps.nandimobile",   // Google Pay alternate
+        "com.whatsapp",                           // WhatsApp Pay
+        "com.whatsapp.w4b",                       // WhatsApp Business Pay
+        "in.amazon.mShop.android.shopping",      // Amazon Pay
+        "in.org.npci.upiapp",                    // BHIM UPI
+        "com.dreamplug.androidapp",               // CRED Pay
+        "com.mobikwik_new",                       // MobiKwik
+        "com.freecharge.android",                 // Freecharge
+        "com.truecaller",                         // Truecaller Pay
+        "com.tatadigital.tcp",                    // Tata Neu
+        "com.naviapp",                            // Navi App
+        "com.fampay.in",                          // FamPay / FamApp
+        "com.nextbillion.groww",                  // Groww UPI
+        "com.epifi.paisa",                        // Fi Money
+        "com.olacabs.customer",                   // Ola Money
+        "money.super.payments",                   // Super Money
+        "org.altruist.BajajExperia",              // Bajaj Finserv
+        "in.bajajfinservmarkets.app",             // Bajaj Finserv Markets
+        "com.postpe.app",                         // BharatPe Consumer
+        "com.bharatpe.app",                       // BharatPe Merchant
+        "indwin.c3.shareapp",                     // Slice UPI
+        "com.moneytap.bnpl.app",                  // Freo / MoneyTap
+        "com.paypal.android.p2pmobile",           // PayPal India
+
+        // Bank-Backed and Private Bank UPI Apps
+        "com.sbi.upi",                            // SBI Pay
+        "com.sbi.SBIFreedomPlus",                 // SBI YONO / Freedom Plus
+        "com.csam.icici.bank.imobile",            // ICICI iMobile Pay
+        "com.icicibank.pockets",                  // ICICI Pockets
+        "com.snapwork.hdfc",                      // HDFC PayZapp
+        "com.snapwork.hdfcbank",                  // HDFC PayZapp alternate
+        "com.enstage.wibmo.hdfc",                 // HDFC Wibmo
+        "com.upi.axispay",                        // Axis Pay
+        "com.axis.mobile",                        // Axis Bank Mobile
+        "com.olive.kotak.upi",                    // Kotak Pay
+        "com.kotak.mobilebanking",                // Kotak Bank
+        "com.YesBank",                            // Yes Bank
+        "com.yesbank.yespaynext",                 // YES HUB Pay
+        "com.fss.pnbpsp",                         // PNB UPI
+        "com.bankofbaroda.upi",                   // Bank of Baroda
+        "com.canarabank.mobility",                // Canara Bank
+        "com.mgs.induspsp",                       // IndusInd Bank
+        "com.upi.federalbank.org.lotza",          // Federal Bank
+        "com.SIBMobile",                          // South Indian Bank
+        "com.rblbank.mobank",                     // RBL MoBank
+        "com.olive.dcb.upi",                      // DCB Bank
+        "com.dbs.in.digitalbank",                 // DBS Digibank
+        "com.fss.idfcpsp",                        // IDFC PSP
+        "com.finopaytech.bpayfino",               // Fino Pay
+        "com.fss.jnkpsp",                         // Jammu & Kashmir Bank
+        "com.fss.vijayapsp",                      // Vijaya Bank
+        "com.dena.upi.gui",                       // Dena Bank
+        "com.mycompany.kvb",                      // KVB
+        "com.mgs.obcbank",                        // Oriental Bank of Commerce
+        "com.mgs.hsbcupi",                        // HSBC UPI
+        "com.fisglobal.bandhanupi.app",           // Bandhan Bank
+        "com.abipbl.upi",                         // ABIPBL (Allahabad Bank)
+        "com.fss.unbipsp",                        // UNBI
+        "com.iexceed.appzillon.ippbMB",           // India Post Payments Bank MB
+
+        // Telecom / Other Payment Apps
+        "com.myairtelapp",                        // Airtel Thanks / Airtel Pay
+        "com.jio.myjio",                          // Jio Pay / MyJio
+        "com.samsung.android.spay",               // Samsung Pay
+        "com.samsung.android.spaymini",           // Samsung Pay Mini
+        "com.citrus.citruspay",                   // CitrusPay
+        "com.bsb.hike",                           // Hike
+        "in.chillr",                              // Chillr
+        "ai.wizely.android",                      // Wizely
+        "in.gokiwi.kiwitpap",                     // Kiwi App
+        "com.ultracash.payment.customer",         // Ultracash
+        "com.svs.shriramcity",                    // Shriram One
+        "com.popclub.android",                    // POPclub
+        "inance.global.travel.niyo",              // Niyo Global
+        "com.microsoft.mobile.polymer",           // Microsoft Polymer
+        "com.msf.angelmobile",                    // Angel Broking Mobile
+        "com.angelbroking.angelwealth",           // Angel Wealth
+        "com.fundsindia",                        // Funds India
+
+        // Additional / Existing known UPI providers
+        "com.phonepe.app.preprod",
+        "com.phonepe.app.business",
+        "com.commercial.android",                 // fallback pattern if needed
+        "com.naviapp"
     )
 
     private val APP_DISPLAY_NAMES = mapOf(
         "com.phonepe.app" to "PhonePe",
+        "com.phonepe.app.preprod" to "PhonePe",
         "com.phonepe.app.business" to "PhonePe Business",
         "net.one97.paytm" to "Paytm",
-        "net.one97.paytm.merchant" to "Paytm Business",
+        "com.paytmmall" to "Paytm Mall",
         "com.paytm.business" to "Paytm Business",
         "com.google.android.apps.nbu.paisa.user" to "Google Pay",
         "com.google.android.apps.nbu.paisa.merchant" to "Google Pay Business",
-        "in.org.npci.upiapp" to "BHIM",
-        "com.freecharge.android" to "FreeCharge",
-        "com.mobikwik_new" to "MobiKwik",
-        "com.amazon.mShop.android.shopping" to "Amazon Pay",
+        "com.google.android.apps.nandimobile" to "Google Pay",
         "com.whatsapp" to "WhatsApp Pay",
-        "io.navi.app" to "Navi",
-        "com.cred.android" to "CRED"
+        "com.whatsapp.w4b" to "WhatsApp Pay",
+        "in.amazon.mShop.android.shopping" to "Amazon Pay",
+        "in.org.npci.upiapp" to "BHIM UPI",
+        "com.dreamplug.androidapp" to "CRED Pay",
+        "com.cred.android" to "CRED",
+        "com.mobikwik_new" to "MobiKwik",
+        "com.mobikwik_instapay" to "MobiKwik",
+        "com.freecharge.android" to "Freecharge",
+        "com.truecaller" to "Truecaller Pay",
+        "com.tatadigital.tcp" to "Tata Neu",
+        "com.naviapp" to "Navi",
+        "com.fampay.in" to "FamPay",
+        "com.nextbillion.groww" to "Groww UPI",
+        "com.epifi.paisa" to "Fi Money",
+        "com.olacabs.customer" to "Ola Money",
+        "money.super.payments" to "Super Money",
+        "org.altruist.BajajExperia" to "Bajaj Finserv",
+        "in.bajajfinservmarkets.app" to "Bajaj Finserv Markets",
+        "com.postpe.app" to "BharatPe",
+        "com.bharatpe.app" to "BharatPe Merchant",
+        "indwin.c3.shareapp" to "Slice UPI",
+        "com.moneytap.bnpl.app" to "Freo / MoneyTap",
+        "com.paypal.android.p2pmobile" to "PayPal India",
+        "com.sbi.upi" to "SBI Pay",
+        "com.sbi.SBIFreedomPlus" to "SBI YONO",
+        "com.csam.icici.bank.imobile" to "ICICI iMobile",
+        "com.icicibank.pockets" to "ICICI Pockets",
+        "com.snapwork.hdfc" to "HDFC PayZapp",
+        "com.snapwork.hdfcbank" to "HDFC PayZapp",
+        "com.enstage.wibmo.hdfc" to "HDFC Wibmo",
+        "com.upi.axispay" to "Axis Pay",
+        "com.axis.mobile" to "Axis Mobile",
+        "com.olive.kotak.upi" to "Kotak Pay",
+        "com.kotak.mobilebanking" to "Kotak Bank",
+        "com.YesBank" to "Yes Bank",
+        "com.yesbank.yespaynext" to "YES HUB Pay",
+        "com.fss.pnbpsp" to "PNB UPI",
+        "com.bankofbaroda.upi" to "Bank of Baroda",
+        "com.canarabank.mobility" to "Canara Bank",
+        "com.mgs.induspsp" to "IndusInd Bank",
+        "com.upi.federalbank.org.lotza" to "Federal Bank",
+        "com.SIBMobile" to "South Indian Bank",
+        "com.rblbank.mobank" to "RBL MoBank",
+        "com.olive.dcb.upi" to "DCB Bank",
+        "com.dbs.in.digitalbank" to "DBS Digibank",
+        "com.fss.idfcpsp" to "IDFC PSP",
+        "com.finopaytech.bpayfino" to "Fino Pay",
+        "com.fss.jnkpsp" to "Jammu & Kashmir Bank",
+        "com.fss.vijayapsp" to "Vijaya Bank",
+        "com.dena.upi.gui" to "Dena Bank",
+        "com.mycompany.kvb" to "KVB",
+        "com.mgs.obcbank" to "OBC Bank",
+        "com.mgs.hsbcupi" to "HSBC UPI",
+        "com.fisglobal.bandhanupi.app" to "Bandhan Bank",
+        "com.abipbl.upi" to "Allahabad Bank",
+        "com.fss.unbipsp" to "UNBI",
+        "com.iexceed.appzillon.ippbMB" to "India Post Payments Bank",
+        "com.myairtelapp" to "Airtel Thanks",
+        "com.jio.myjio" to "Jio Pay",
+        "com.samsung.android.spay" to "Samsung Pay",
+        "com.samsung.android.spaymini" to "Samsung Pay Mini",
+        "com.citrus.citruspay" to "CitrusPay",
+        "com.bsb.hike" to "Hike",
+        "in.chillr" to "Chillr",
+        "ai.wizely.android" to "Wizely",
+        "in.gokiwi.kiwitpap" to "Kiwi",
+        "com.ultracash.payment.customer" to "Ultracash",
+        "com.svs.shriramcity" to "Shriram One",
+        "com.popclub.android" to "POPclub",
+        "inance.global.travel.niyo" to "Niyo Global",
+        "com.microsoft.mobile.polymer" to "Microsoft Polymer",
+        "com.msf.angelmobile" to "Angel Broking",
+        "com.angelbroking.angelwealth" to "Angel Wealth",
+        "com.fundsindia" to "Funds India",
+        "com.tatadigital.tcp" to "Tata Neu"
     )
 
     private val RECEIVED_KEYWORDS = listOf(
@@ -171,42 +314,37 @@ object NotificationParser {
 
         val lowerText = fullText.lowercase()
 
-        // 1. Strict Promotional/Spam Exclusion (Stops PhonePe/Paytm advertisements and Swiggy offers)
-        if (PROMOTIONAL_KEYWORDS.any { lowerText.contains(it) }) {
+        // 1. Promotional/Spam Exclusion only when there is no clear received payment context.
+        val hasReceivedKeyword = RECEIVED_KEYWORDS.any { lowerText.contains(it) }
+        val amountDetected = extractAmount(fullText) != null
+        if (!hasReceivedKeyword && !amountDetected && PROMOTIONAL_KEYWORDS.any { lowerText.contains(it) }) {
             Log.d("NotificationParser", "Suppressed promotional/ad notification: $fullText")
             return null
         }
 
-        // 2. Strict Conversational WhatsApp Chat Exclusion
-        if (packageName == "com.whatsapp") {
+        // 2. Strict Conversational WhatsApp Chat Exclusion for WhatsApp Pay notifications.
+        if (packageName == "com.whatsapp" || packageName == "com.whatsapp.w4b") {
             // WhatsApp chat notifications use Notification.MessagingStyle and contain android.messages.
-            // Official WhatsApp Pay notifications do not contain messages chat threads!
+            // Official WhatsApp Pay notifications typically do not carry chat thread message bubbles.
             if (extras.containsKey("android.messages") || extras.getParcelableArray("android.messages") != null) {
                 Log.d("NotificationParser", "Skipped casual WhatsApp chat thread notification")
                 return null
             }
             val lowerTitle = title.lowercase()
-            val isOfficialPayment = lowerTitle.contains("payment") || lowerTitle.contains("whatsapp pay") || 
-                    lowerText.contains("payment received") || lowerText.contains("received ₹") || 
+            val isOfficialPayment = lowerTitle.contains("payment") || lowerTitle.contains("whatsapp pay") ||
+                    lowerText.contains("payment received") || lowerText.contains("received ₹") ||
                     lowerText.contains("credited ₹") || lowerText.contains("sent you ₹") ||
-                    lowerText.contains("whatsapp pay")
-            val hasConversationalIndicators = lowerText.contains("?") || lowerText.contains("please") || 
-                    lowerText.contains("bro") || lowerText.contains("bhai") || lowerText.contains("check") || 
-                    lowerText.contains("ask") || lowerText.contains("group") || lowerText.contains("call") || 
-                    lowerText.contains("send") || lowerText.contains("request")
+                    lowerText.contains("whatsapp pay") || lowerText.contains("paid you")
+            val hasConversationalIndicators = lowerText.contains("?") || lowerText.contains("please") ||
+                    lowerText.contains("bro") || lowerText.contains("bhai") || lowerText.contains("check") ||
+                    lowerText.contains("ask") || lowerText.contains("group") || lowerText.contains("call") ||
+                    lowerText.contains("request")
             if (!isOfficialPayment || hasConversationalIndicators) {
                 Log.d("NotificationParser", "Skipped casual WhatsApp chat notification: $fullText")
                 return null
             }
         }
 
-        // Ignore clear outgoing transactions
-        if (SENT_KEYWORDS.any { lowerText.contains(it) } &&
-            !RECEIVED_KEYWORDS.any { lowerText.contains(it) }) {
-            return null
-        }
-
-        val hasReceivedKeyword = RECEIVED_KEYWORDS.any { lowerText.contains(it) }
         val hasSentKeyword = SENT_KEYWORDS.any { lowerText.contains(it) }
         if (!hasReceivedKeyword && hasSentKeyword) return null
 
