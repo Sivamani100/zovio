@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-  namespace = "com.example"
+  namespace = "com.zovio.announcer"
   compileSdk { version = release(36) { minorApiLevel = 1 } }
 
   defaultConfig {
-    applicationId = "com.aistudio.upipaymentannouncer.skwzpo"
+    applicationId = "com.zovio.announcer"
     minSdk = 26
     targetSdk = 36
     versionCode = 1
-    versionName = "1.0_prod"
+    versionName = "1.0.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -39,7 +39,8 @@ android {
   buildTypes {
     release {
       isCrunchPngs = false
-      isMinifyEnabled = false
+      isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
     }
@@ -65,17 +66,13 @@ secrets {
   defaultPropertiesFileName = ".env.example"
 }
 
-// Some unused dependencies are commented out below instead of being removed.
-// This makes it easy to add them back in the future if needed.
+// Keep dependencies minimal; removed redundant commented entries.
 dependencies {
   implementation(platform(libs.androidx.compose.bom))
   implementation(platform(libs.firebase.bom))
-  // implementation(libs.accompanist.permissions)
+  
   implementation(libs.androidx.activity.compose)
-  // implementation(libs.androidx.camera.camera2)
-  // implementation(libs.androidx.camera.core)
-  // implementation(libs.androidx.camera.lifecycle)
-  // implementation(libs.androidx.camera.view)
+  
   implementation(libs.androidx.compose.material.icons.core)
   implementation(libs.androidx.compose.material.icons.extended)
   implementation(libs.androidx.compose.material3)
@@ -93,15 +90,15 @@ dependencies {
   implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
   implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
   implementation("com.google.mlkit:barcode-scanning:17.3.0")
-  // implementation(libs.coil.compose)
+  
   implementation(libs.converter.moshi)
-  // implementation(libs.firebase.ai)
+  
   implementation(libs.kotlinx.coroutines.android)
   implementation(libs.kotlinx.coroutines.core)
   implementation(libs.logging.interceptor)
   implementation(libs.moshi.kotlin)
   implementation(libs.okhttp)
-  // implementation(libs.play.services.location)
+  
   implementation(libs.retrofit)
   testImplementation(libs.androidx.compose.ui.test.junit4)
   testImplementation(libs.androidx.core)

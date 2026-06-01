@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
 
     <!-- Grant visibility to discover and select installed UPI payment apps on Android 11+ (API 30+) -->
     <queries>
@@ -37,7 +36,7 @@
     </queries>
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -47,7 +46,7 @@
         android:theme="@style/Theme.MyApplication">
         
         <activity
-            android:name="com.example.MainActivity"
+            android:name="com.zovio.announcer.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication"
@@ -60,7 +59,7 @@
 
         <!-- The core listener service registration -->
         <service
-            android:name="com.example.service.UpiNotificationListenerService"
+            android:name="com.zovio.announcer.service.UpiNotificationListenerService"
             android:exported="true"
             android:label="Zovio Listener Service"
             android:foregroundServiceType="specialUse"
@@ -72,7 +71,7 @@
 
         <!-- Receiver to handle boot operations -->
         <receiver
-            android:name="com.example.service.BootReceiver"
+            android:name="com.zovio.announcer.service.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -82,9 +81,8 @@
 
         <!-- Receiver to check and parse incoming banking credit SMS messages -->
         <receiver
-            android:name="com.example.service.SmsReceiver"
-            android:exported="true"
-            android:permission="android.permission.BROADCAST_SMS">
+            android:name="com.zovio.announcer.service.SmsReceiver"
+            android:exported="true">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.Sms.Intents.SMS_RECEIVED_ACTION" />
             </intent-filter>
@@ -92,12 +90,12 @@
 
         <!-- AppWidget declaration for Homescreen Display -->
         <receiver
-            android:name="com.example.service.QrWidgetProvider"
+            android:name="com.zovio.announcer.service.QrWidgetProvider"
             android:label="Zovio QR Display"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.action.REFRESH_QR_WIDGET" />
+                <action android:name="com.zovio.announcer.action.REFRESH_QR_WIDGET" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -106,7 +104,7 @@
 
         <!-- AppWidget declaration for Instant QR Scanner shortcut -->
         <receiver
-            android:name="com.example.service.QrScannerWidgetProvider"
+            android:name="com.zovio.announcer.service.QrScannerWidgetProvider"
             android:label="Instant UPI QR Scanner"
             android:exported="true">
             <intent-filter>
